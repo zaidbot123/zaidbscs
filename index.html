@@ -1,1 +1,917 @@
-zaidbscs testing
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Zaid Hussain · Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+        /* ─── Base ─── */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f5f7fa;
+            color: #1a1a2e;
+            line-height: 1.6;
+            padding: 2rem 1.5rem;
+        }
+
+        .wrapper {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        /* ─── Header ─── */
+        .header {
+            background: #ffffff;
+            padding: 2rem 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.04);
+            margin-bottom: 1.8rem;
+            border: 1px solid #eaeef4;
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+            transition: box-shadow 0.2s;
+        }
+
+        .header:hover {
+            box-shadow: 0 4px 30px rgba(0,0,0,0.06);
+        }
+
+        /* ─── Photo - Clickable ─── */
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 20px;
+            object-fit: cover;
+            border: 4px solid #ffffff;
+            box-shadow: 0 8px 30px rgba(37, 99, 235, 0.15);
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #eef2ff, #dbeafe);
+            cursor: pointer;
+        }
+
+        .profile-img:hover {
+            transform: scale(1.03) rotate(-1deg);
+            box-shadow: 0 12px 40px rgba(37, 99, 235, 0.25);
+        }
+
+        /* ─── Image Preview Overlay ─── */
+        .image-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+            padding: 2rem;
+        }
+
+        .image-overlay.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .image-overlay img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 20px;
+            object-fit: contain;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            animation: zoomIn 0.3s ease;
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .image-overlay .close-btn {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            color: #ffffff;
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            z-index: 10000;
+        }
+
+        .image-overlay .close-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .image-overlay .close-btn i {
+            font-size: 1.8rem;
+        }
+
+        /* ─── Close on click background ─── */
+        .image-overlay .overlay-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        /* ─── Header Text ─── */
+        .header-text {
+            flex: 1;
+        }
+
+        .name-title h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #0f172a;
+            letter-spacing: -0.5px;
+            line-height: 1.1;
+        }
+
+        .name-title .role {
+            font-size: 1.15rem;
+            color: #64748b;
+            font-weight: 400;
+            margin-top: 0.1rem;
+        }
+
+        .tagline-group {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.6rem;
+            margin-top: 0.5rem;
+        }
+
+        .tagline {
+            background: #eef2ff;
+            color: #1e40af;
+            padding: 0.2rem 1.2rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px solid #c7d2fe;
+        }
+
+        .status-badge {
+            background: #dcfce7;
+            color: #166534;
+            padding: 0.2rem 1.2rem;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            border: 1px solid #bbf7d0;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .status-badge .dot {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: #22c55e;
+            border-radius: 50%;
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* ─── Download Resume Button ─── */
+        .btn-resume {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #2563eb;
+            color: #ffffff;
+            padding: 0.25rem 1.2rem;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            border: 1px solid #2563eb;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .btn-resume:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+            color: #ffffff;
+        }
+
+        .btn-resume i {
+            font-size: 0.7rem;
+        }
+
+        .location {
+            color: #64748b;
+            font-size: 0.85rem;
+            margin-top: 0.3rem;
+        }
+        .location i {
+            color: #2563eb;
+            margin-right: 0.3rem;
+        }
+
+        /* ─── Contact Row ─── */
+        .contact-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem 1.5rem;
+            margin-top: 1.2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eaeef4;
+        }
+
+        .contact-row a {
+            color: #1e293b;
+            text-decoration: none;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all 0.2s;
+            padding: 0.2rem 0.4rem;
+            border-radius: 6px;
+        }
+
+        .contact-row a i {
+            color: #2563eb;
+            font-size: 0.9rem;
+            width: 1rem;
+        }
+
+        .contact-row a:hover {
+            color: #2563eb;
+            background: #f0f4ff;
+        }
+
+        /* ─── Cards ─── */
+        .card {
+            background: #ffffff;
+            padding: 2rem 2.5rem;
+            border-radius: 18px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.03);
+            margin-bottom: 1.5rem;
+            border: 1px solid #eaeef4;
+            transition: all 0.2s;
+        }
+
+        .card:hover {
+            border-color: #d5dde8;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+        }
+
+        .card h2 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .card h2 i {
+            color: #2563eb;
+            font-size: 1.1rem;
+            width: 1.6rem;
+        }
+
+        /* ─── About ─── */
+        .about p {
+            font-size: 1.02rem;
+            color: #1e293b;
+            margin-bottom: 0.6rem;
+        }
+
+        .highlight-text {
+            background: #eef2ff;
+            padding: 0.05rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 500;
+            color: #1e40af;
+        }
+
+        .looking-box {
+            margin-top: 0.8rem;
+            background: #f1f4f9;
+            padding: 0.5rem 1.2rem;
+            border-radius: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+            border-left: 3px solid #2563eb;
+        }
+
+        .looking-box i {
+            color: #2563eb;
+        }
+
+        /* ─── Skills ─── */
+        .skill-group {
+            margin-bottom: 0.8rem;
+        }
+
+        .skill-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .skill-group .label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            color: #94a3b8;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .skill-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem 0.6rem;
+        }
+
+        .skill-chips span {
+            background: #f1f4f9;
+            padding: 0.25rem 1.1rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            color: #1e293b;
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s;
+        }
+
+        .skill-chips span:hover {
+            background: #eef2ff;
+            border-color: #b3c8f0;
+            transform: translateY(-1px);
+        }
+
+        /* ─── Experience ─── */
+        .exp-item {
+            padding: 1rem 0;
+            border-bottom: 1px solid #f0f2f5;
+        }
+
+        .exp-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .exp-head {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 0.3rem;
+        }
+
+        .exp-title {
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: #0f172a;
+        }
+
+        .exp-company {
+            color: #2563eb;
+            font-weight: 500;
+        }
+
+        .exp-date {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            background: #f1f4f9;
+            padding: 0.05rem 0.9rem;
+            border-radius: 30px;
+        }
+
+        .exp-item ul {
+            margin-top: 0.4rem;
+            padding-left: 1.2rem;
+            color: #1e293b;
+            font-size: 0.92rem;
+        }
+
+        .exp-item ul li {
+            margin-bottom: 0.15rem;
+        }
+
+        /* ─── Projects ─── */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.2rem;
+        }
+
+        .project-item {
+            background: #f8fafc;
+            padding: 1.3rem 1.4rem;
+            border-radius: 14px;
+            border: 1px solid #eaeef4;
+            transition: all 0.25s;
+        }
+
+        .project-item:hover {
+            background: #f5f7fa;
+            border-color: #c7d2fe;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+        }
+
+        .project-item .p-name {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #0f172a;
+        }
+
+        .project-item .p-stack {
+            font-size: 0.7rem;
+            color: #94a3b8;
+            margin: 0.1rem 0 0.4rem;
+            letter-spacing: 0.2px;
+        }
+
+        .project-item .p-desc {
+            font-size: 0.88rem;
+            color: #1e293b;
+            margin-bottom: 0.6rem;
+        }
+
+        .project-item .p-link {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            transition: all 0.2s;
+        }
+
+        .project-item .p-link i {
+            font-size: 0.7rem;
+            transition: transform 0.2s;
+        }
+
+        .project-item .p-link:hover {
+            color: #1d4ed8;
+        }
+
+        .project-item .p-link:hover i {
+            transform: translateX(4px);
+        }
+
+        /* ─── Education ─── */
+        .edu-item {
+            padding: 0.6rem 0;
+            border-bottom: 1px solid #f0f2f5;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .edu-item:last-child {
+            border-bottom: none;
+        }
+
+        .edu-name {
+            font-weight: 500;
+            color: #0f172a;
+        }
+
+        .edu-meta {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .certs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem 0.8rem;
+            margin-top: 0.8rem;
+        }
+
+        .certs span {
+            background: #f1f4f9;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            color: #1e293b;
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s;
+        }
+
+        .certs span:hover {
+            background: #eef2ff;
+            border-color: #b3c8f0;
+        }
+
+        .certs span i {
+            color: #2563eb;
+            margin-right: 0.3rem;
+        }
+
+        /* ─── Footer ─── */
+        .footer {
+            text-align: center;
+            padding: 1.8rem 0 0.5rem;
+            color: #94a3b8;
+            font-size: 0.85rem;
+            border-top: 1px solid #eaeef4;
+            margin-top: 1.5rem;
+        }
+
+        .footer .social {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .footer .social a {
+            color: #64748b;
+            font-size: 1.2rem;
+            transition: all 0.2s;
+        }
+
+        .footer .social a:hover {
+            color: #2563eb;
+            transform: translateY(-2px);
+        }
+
+        /* ─── Responsive ─── */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            .header {
+                flex-direction: column;
+                text-align: center;
+                padding: 1.8rem 1.5rem;
+                gap: 1.2rem;
+            }
+            .profile-img {
+                width: 130px;
+                height: 130px;
+                order: -1;
+            }
+            .card {
+                padding: 1.5rem 1.2rem;
+            }
+            .name-title h1 {
+                font-size: 2.2rem;
+            }
+            .tagline-group {
+                justify-content: center;
+            }
+            .contact-row {
+                justify-content: center;
+            }
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+            .exp-head {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.1rem;
+            }
+            .edu-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.1rem;
+            }
+            .looking-box {
+                display: flex;
+                flex-wrap: wrap;
+            }
+            .image-overlay .close-btn {
+                top: 1rem;
+                right: 1rem;
+                font-size: 1.8rem;
+                width: 40px;
+                height: 40px;
+            }
+            .image-overlay img {
+                max-width: 95%;
+                max-height: 85%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .name-title h1 {
+                font-size: 1.8rem;
+            }
+            .card h2 {
+                font-size: 1.1rem;
+            }
+            .profile-img {
+                width: 110px;
+                height: 110px;
+            }
+            .contact-row a {
+                font-size: 0.78rem;
+            }
+            .btn-resume {
+                font-size: 0.7rem;
+                padding: 0.2rem 1rem;
+            }
+            .image-overlay .close-btn {
+                top: 0.8rem;
+                right: 0.8rem;
+                font-size: 1.5rem;
+                width: 35px;
+                height: 35px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+
+    <!-- ═══ HEADER ═══ -->
+    <div class="header">
+        <!-- 📸 Clickable Profile Photo -->
+        <img 
+            src="https://i.ibb.co/kgm48qBc/DSC-0938-1.jpg" 
+            alt="Zaid Hussain" 
+            class="profile-img" 
+            id="profilePhoto"
+            onclick="openImagePreview()"
+        />
+
+        <div class="header-text">
+            <div class="name-title">
+                <h1>Zaid Hussain</h1>
+                <div class="role">Full-Stack Developer</div>
+                <div class="tagline-group">
+                    <span class="tagline">💻 building things that work</span>
+                    <span class="status-badge">
+                        <span class="dot"></span> open to work
+                    </span>
+                    <a href="Zaid Hussain Resume.pdf" class="btn-resume" download>
+                        <i class="fas fa-file-pdf"></i> Download Resume
+                    </a>
+                </div>
+                <div class="location"><i class="fas fa-map-pin"></i> Narowal · Lahore, Pakistan</div>
+            </div>
+
+            <div class="contact-row">
+                <a href="mailto:zaidbscs@gmail.com"><i class="fas fa-envelope"></i> zaidbscs@gmail.com</a>
+                <a href="tel:+923197656625"><i class="fas fa-phone"></i> +92 319-7656625</a>
+                <a href="https://github.com/zaidbscs" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                <a href="https://linkedin.com/in/zaidbscs" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                <a href="https://zaidbscs.vercel.app" target="_blank"><i class="fas fa-globe"></i> Portfolio</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ IMAGE PREVIEW OVERLAY ═══ -->
+    <div class="image-overlay" id="imageOverlay" onclick="closeImagePreview()">
+        <div class="overlay-bg"></div>
+        <img src="https://i.ibb.co/kgm48qBc/DSC-0938-1.jpg" alt="Zaid Hussain - Full View" id="previewImage" />
+        <div class="close-btn" onclick="event.stopPropagation(); closeImagePreview();">
+            <i class="fas fa-times"></i>
+        </div>
+    </div>
+
+    <!-- ═══ ABOUT ═══ -->
+    <div class="card about">
+        <h2><i class="fas fa-user"></i> About</h2>
+        <p>
+            I'm a BSCS grad who actually <span class="highlight-text">builds stuff</span>. 
+            I've made 5+ web apps from scratch — handling everything from database design 
+            to deployment. I enjoy solving problems with clean code and making things 
+            that people can actually use.
+        </p>
+        <div class="looking-box">
+            <i class="fas fa-bolt"></i> 
+            Looking for a <strong>Full Stack Internship</strong> or <strong>Junior Dev</strong> role
+        </div>
+    </div>
+
+    <!-- ═══ SKILLS ═══ -->
+    <div class="card">
+        <h2><i class="fas fa-tools"></i> Skills</h2>
+
+        <div class="skill-group">
+            <span class="label">Languages</span>
+            <div class="skill-chips">
+                <span>PHP</span><span>JavaScript</span><span>HTML5</span><span>CSS3</span><span>C++</span><span>Python</span>
+            </div>
+        </div>
+
+        <div class="skill-group">
+            <span class="label">Backend &amp; Database</span>
+            <div class="skill-chips">
+                <span>MySQL</span><span>REST APIs</span><span>JWT Auth</span><span>MongoDB</span>
+            </div>
+        </div>
+
+        <div class="skill-group">
+            <span class="label">Tools &amp; Deployment</span>
+            <div class="skill-chips">
+                <span>Git</span><span>VS Code</span><span>cPanel</span><span>Heroku</span><span>Render</span><span>Vercel</span>
+            </div>
+        </div>
+
+        <div class="skill-group" style="margin-bottom:0;">
+            <span class="label">Additional</span>
+            <div class="skill-chips">
+                <span>AI Tools</span><span>SEO</span><span>Illustrator</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ EXPERIENCE ═══ -->
+    <div class="card">
+        <h2><i class="fas fa-briefcase"></i> Experience</h2>
+
+        <div class="exp-item">
+            <div class="exp-head">
+                <span class="exp-title">Full-Stack Freelance</span>
+                <span class="exp-company">Self-employed</span>
+                <span class="exp-date">2025 – Present</span>
+            </div>
+            <ul>
+                <li>Built and deployed 5+ web applications using PHP, MySQL, and JavaScript</li>
+                <li>Handled everything from planning to deployment on various platforms</li>
+                <li>Created responsive interfaces that work on all devices</li>
+            </ul>
+        </div>
+
+        <div class="exp-item">
+            <div class="exp-head">
+                <span class="exp-title">Computer Operations</span>
+                <span class="exp-company">UK Company (Remote)</span>
+                <span class="exp-date">2024 – 2025</span>
+            </div>
+            <ul>
+                <li>Managed data processing and daily operations</li>
+                <li>Created reports and maintained records in Excel</li>
+                <li>Coordinated with UK team for smooth workflow</li>
+            </ul>
+        </div>
+
+        <div class="exp-item" style="border-bottom:0; padding-bottom:0;">
+            <div class="exp-head">
+                <span class="exp-title">Graphic Design</span>
+                <span class="exp-company">Freelance</span>
+                <span class="exp-date">2023 – 2024</span>
+            </div>
+            <ul>
+                <li>Designed UI for websites and mobile applications</li>
+                <li>Created social media graphics and marketing materials</li>
+                <li>Worked with clients from concept to delivery</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ═══ PROJECTS ═══ -->
+    <div class="card">
+        <h2><i class="fas fa-folder"></i> Projects</h2>
+
+        <div class="project-grid">
+
+            <div class="project-item">
+                <div class="p-name">AssignmentWorkZone</div>
+                <div class="p-stack">PHP · MySQL · JS</div>
+                <div class="p-desc">Assignment management platform with uploads, sharing, and role-based access.</div>
+                <a href="https://assignmentworkzone.com" target="_blank" class="p-link">View Project <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <div class="project-item">
+                <div class="p-name">Past Papers</div>
+                <div class="p-stack">PHP · MySQL · Google API</div>
+                <div class="p-desc">5+ years of exam papers with search, filters, and student contributions.</div>
+                <a href="https://papers.uniplus.click" target="_blank" class="p-link">View Project <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <div class="project-item">
+                <div class="p-name">Uniplus</div>
+                <div class="p-stack">PHP · MySQL · AJAX</div>
+                <div class="p-desc">Social platform for students to connect and share academic resources.</div>
+                <a href="https://uniplus.click" target="_blank" class="p-link">View Project <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <div class="project-item">
+                <div class="p-name">MaraSchool (FYP)</div>
+                <div class="p-stack">PHP · MySQL · Android</div>
+                <div class="p-desc">School management with role-based portals for attendance, grades, fees.</div>
+                <a href="https://maraschool.free.nf" target="_blank" class="p-link">View Project <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <div class="project-item">
+                <div class="p-name">Age Calculator</div>
+                <div class="p-stack">JS · HTML · CSS</div>
+                <div class="p-desc">Precise age tool calculating years, months, days, hours, and more.</div>
+                <a href="https://calculate-age.vercel.app" target="_blank" class="p-link">View Project <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <div class="project-item">
+                <div class="p-name">Hide in Emoji</div>
+                <div class="p-stack">JS · HTML · CSS</div>
+                <div class="p-desc">Hides secret messages inside emojis using zero-width characters.</div>
+                <a href="https://hide-msg-in-emoji.vercel.app" target="_blank" class="p-link">View Project <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ═══ EDUCATION ═══ -->
+    <div class="card">
+        <h2><i class="fas fa-graduation-cap"></i> Education</h2>
+
+        <div class="edu-item">
+            <span class="edu-name">BS Computer Science</span>
+            <span class="edu-meta">Heritage College, Narowal (GCUF) · 2022–2026</span>
+        </div>
+        <div class="edu-item" style="border-bottom:0;">
+            <span class="edu-name">Intermediate (ICS)</span>
+            <span class="edu-meta">BISE Gujranwala · 2020–2022</span>
+        </div>
+
+        <div style="margin-top:1.2rem;">
+            <div style="font-weight:600; color:#0f172a; margin-bottom:0.4rem; font-size:0.95rem;">
+                <i class="fas fa-certificate" style="color:#2563eb;"></i> Certifications
+            </div>
+            <div class="certs">
+                <span><i class="fas fa-check"></i> PHP/MySQL Developer (2025)</span>
+                <span><i class="fas fa-check"></i> Responsive Web Design (2023)</span>
+                <span><i class="fas fa-check"></i> Graphics Design (2022)</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ FOOTER ═══ -->
+    <div class="footer">
+        <div class="social">
+            <a href="https://github.com/zaidbscs" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://linkedin.com/in/zaidbscs" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="https://zaidbscs.vercel.app" target="_blank" aria-label="Portfolio"><i class="fas fa-globe"></i></a>
+            <a href="mailto:zaidbscs@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+        </div>
+        <p>made with ☕ · 2026 · Zaid</p>
+    </div>
+
+</div>
+
+<script>
+    // ─── Image Preview Functions ───
+    function openImagePreview() {
+        const overlay = document.getElementById('imageOverlay');
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
+    }
+
+    function closeImagePreview() {
+        const overlay = document.getElementById('imageOverlay');
+        overlay.classList.remove('active');
+        document.body.style.overflow = ''; // Restore scrolling
+    }
+
+    // Close on Escape key
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            closeImagePreview();
+        }
+    });
+</script>
+
+</body>
+</html>
