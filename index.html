@@ -157,9 +157,41 @@
     display:flex;flex-direction:column;transition:transform .2s ease, box-shadow .2s ease;
   }
   .proj-card:hover{transform:translateY(-4px);box-shadow:0 20px 40px -24px rgba(0,0,0,.25);}
-  .proj-thumb{
-    height:150px;display:flex;align-items:center;justify-content:center;color:#fff;
-    font-family:'Poppins',sans-serif;font-weight:700;font-size:15px;text-align:center;padding:16px;
+ 
+.proj-thumb{
+  height: 300px;  
+  position:relative;
+  overflow:hidden;
+  background:#f0f0f0;
+}
+
+.proj-thumb img{
+  width:100%;
+  height:100%;
+  object-fit: contain;  
+  transition:transform .3s ease;
+}
+  .proj-card:hover .proj-thumb img{
+    transform:scale(1.05);
+  }
+  .proj-overlay{
+    position:absolute;
+    inset:0;
+    background:linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+    opacity:0;
+    transition:opacity .3s ease;
+    display:flex;
+    align-items:flex-end;
+    padding:16px;
+  }
+  .proj-card:hover .proj-overlay{
+    opacity:1;
+  }
+  .proj-overlay span{
+    color:#fff;
+    font-family:'Poppins',sans-serif;
+    font-weight:600;
+    font-size:14px;
   }
   .proj-body{padding:22px 22px 24px;flex:1;display:flex;flex-direction:column;}
   .proj-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;}
@@ -172,6 +204,42 @@
     border:1.5px solid var(--ink);
   }
   .btn-sm.solid{background:var(--ink);color:#fff;}
+
+  
+  /* VIEW MORE PROJECTS BUTTON */
+  .proj-more-wrap{
+    text-align:center;
+    margin-top:50px;
+  }
+  .proj-more-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:16px 32px;
+    background:var(--ink);
+    color:#fff;
+    border-radius:999px;
+    font-weight:600;
+    font-size:15px;
+    transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+    box-shadow:0 10px 22px -10px rgba(0,0,0,.5);
+  }
+  .proj-more-btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 14px 28px -10px rgba(0,0,0,.6);
+    background:#3a3c40;
+  }
+  .proj-more-btn svg{
+    width:18px;
+    height:18px;
+    fill:#fff;
+  }
+  .proj-more-sub{
+    display:block;
+    margin-top:14px;
+    font-size:13px;
+    color:var(--muted);
+  }
 
   /* CONTACT */
   .contact{padding:100px 0 60px;text-align:center;}
@@ -203,21 +271,14 @@
       position:fixed;top:68px;left:0;right:0;background:#fff;flex-direction:column;
       padding:24px 32px;gap:20px;border-bottom:1px solid var(--line);
       transform:translateY(-140%);transition:transform .25s ease;
-      
-      
     }
-    
     .nav-links.open{transform:translateY(0);}
     .burger{display:flex;}
     .tl-item{grid-template-columns:1fr;}
-  
-    
-  .contact-box{
-    display:inline-flex;gap:0px;border:1px solid var(--line);border-radius:var(--radius);
-    
-    
+    .contact-box{
+      display:inline-flex;gap:0px;border:1px solid var(--line);border-radius:var(--radius);
+    }
   }
-}
 </style>
 </head>
 <body>
@@ -374,7 +435,9 @@
     <div class="proj-grid">
 
       <div class="proj-card">
-        <div class="proj-thumb" style="background:linear-gradient(135deg,#2563eb,#1d4ed8);">AssignmentWorkZone</div>
+        <div class="proj-thumb">
+          <img src="https://i.ibb.co/s92mRWxP/1.png" alt="AssignmentWorkZone Screenshot">
+        </div>
         <div class="proj-body">
           <div class="proj-tags"><span class="tag">PHP</span><span class="tag">MySQL</span><span class="tag">JS</span></div>
           <h3>AssignmentWorkZone</h3>
@@ -387,7 +450,9 @@
       </div>
 
       <div class="proj-card">
-        <div class="proj-thumb" style="background:linear-gradient(135deg,#059669,#047857);">Past Papers</div>
+        <div class="proj-thumb">
+          <img src="https://i.ibb.co/xtJ5mkFR/2.png" alt="Past Papers Screenshot">
+        </div>
         <div class="proj-body">
           <div class="proj-tags"><span class="tag">PHP</span><span class="tag">MySQL</span><span class="tag">Google API</span></div>
           <h3>Past Papers</h3>
@@ -400,7 +465,9 @@
       </div>
 
       <div class="proj-card">
-        <div class="proj-thumb" style="background:linear-gradient(135deg,#7c3aed,#6d28d9);">Uniplus</div>
+        <div class="proj-thumb">
+          <img src="https://i.ibb.co/JW9gDVRg/3.png" alt="Uniplus Screenshot">
+        </div>
         <div class="proj-body">
           <div class="proj-tags"><span class="tag">PHP</span><span class="tag">MySQL</span><span class="tag">AJAX</span></div>
           <h3>Uniplus</h3>
@@ -413,7 +480,9 @@
       </div>
 
       <div class="proj-card">
-        <div class="proj-thumb" style="background:linear-gradient(135deg,#dc2626,#b91c1c);">MaraSchool</div>
+        <div class="proj-thumb">
+          <img src="https://i.ibb.co/gLt2ZTmP/4.png" alt="MaraSchool Screenshot">
+        </div>
         <div class="proj-body">
           <div class="proj-tags"><span class="tag">PHP</span><span class="tag">MySQL</span><span class="tag">Android</span></div>
           <h3>MaraSchool (FYP)</h3>
@@ -426,7 +495,9 @@
       </div>
 
       <div class="proj-card">
-        <div class="proj-thumb" style="background:linear-gradient(135deg,#ea580c,#c2410c);">Age Calculator</div>
+        <div class="proj-thumb">
+          <img src="https://i.ibb.co/gbqM1TxX/5.png" alt="Age Calculator Screenshot">
+        </div>
         <div class="proj-body">
           <div class="proj-tags"><span class="tag">JS</span><span class="tag">HTML</span><span class="tag">CSS</span></div>
           <h3>Age Calculator</h3>
@@ -439,7 +510,9 @@
       </div>
 
       <div class="proj-card">
-        <div class="proj-thumb" style="background:linear-gradient(135deg,#0891b2,#0e7490);">Hide in Emoji</div>
+        <div class="proj-thumb">
+          <img src="https://i.ibb.co/235xJFQy/6.png" alt="Hide in Emoji Screenshot">
+        </div>
         <div class="proj-body">
           <div class="proj-tags"><span class="tag">JS</span><span class="tag">HTML</span><span class="tag">CSS</span></div>
           <h3>Hide in Emoji</h3>
@@ -452,6 +525,17 @@
       </div>
 
     </div>
+
+    
+    <!-- VIEW MORE PROJECTS BUTTON -->
+    <div class="proj-more-wrap">
+      <a class="proj-more-btn" href="https://github.com/zaidbscs?tab=repositories" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.16-.02-2.11-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.02 1.75 2.68 1.25 3.34.96.1-.74.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.47.11-3.06 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.77.11 3.06.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.07.78 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.2.66.79.55A10.52 10.52 0 0 0 23.5 12c0-6.27-5.23-11.5-11.5-11.5z"/></svg>
+        View More Projects on GitHub
+      </a>
+      <span class="proj-more-sub">Explore all my repositories, experiments & open-source work </span>
+    </div>
+
   </div>
 </section>
 
